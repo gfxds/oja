@@ -16,13 +16,6 @@ class UserControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'New User');
     }
 
-    public function testShowUsers(): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/users');
-        $this->assertResponseIsSuccessful();
-    }
-
     function testAddNewUser(): void{
         $client = static::createClient();
         $crawler = $client->request('PUT', '/user',[
@@ -31,6 +24,21 @@ class UserControllerTest extends WebTestCase
         ]);
         $this->assertResponseIsSuccessful();
     }
+
+    public function testShowUsers(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/users');
+
+        $response = $client->getResponse();
+
+        $v = json_decode($response->getContent(), true);
+        
+        $this->assertSame($v[0]["email"],"test@email.com");
+        $this->assertSame($v[0]["password"],'$2y$10$wY/7.62CL0uvHdZzRD4GZeaDK74k37YYu3oxHJ/o8SVIGOcFl9qqu');
+
+        $this->assertResponseIsSuccessful();
+    }    
 
     function testAddUserInvalidEmail(): void{
         
