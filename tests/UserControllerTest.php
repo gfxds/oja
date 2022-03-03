@@ -10,7 +10,6 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
-
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'New User');
     }
@@ -19,7 +18,15 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/users');
+        $this->assertResponseIsSuccessful();
+    }
 
+    function testAddNewUser(): void{
+        $client = static::createClient();
+        $crawler = $client->request('PUT', '/user',[
+            "email" => "test@email.com",
+            "password" => "Password1!",
+        ]);
         $this->assertResponseIsSuccessful();
     }
    

@@ -3,11 +3,8 @@
 namespace App\Tests;
 
 use PHPUnit\Framework\TestCase;
-
-
 use App\Entity\User;
 use App\Entity\UserException;
-
 
 class UserTest extends TestCase
 {
@@ -29,7 +26,6 @@ class UserTest extends TestCase
 
         $this->assertEquals(true, $verify);
     }
-
 
     public function testValidatePasswordUpper(): void
     {

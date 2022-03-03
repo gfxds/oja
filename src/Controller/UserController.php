@@ -4,12 +4,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -26,7 +28,7 @@ class UserController extends AbstractController
     {
         return $this->render('user.html.twig');
     }
-  
+
     /**
      * List all users
      * @Route("/users", name="show_users")

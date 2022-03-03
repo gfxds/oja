@@ -49,9 +49,8 @@ symfony check:requirements
 ```
 
 Prepare project
+
 ```
-git clone https://github.com/gfxds/oja.git
-cd oja
 composer install
 
 ```
