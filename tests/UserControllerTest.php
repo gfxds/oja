@@ -18,6 +18,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/users');
+<<<<<<< HEAD
         $this->assertResponseIsSuccessful();
     }
 
@@ -27,6 +28,9 @@ class UserControllerTest extends WebTestCase
             "email" => "test@email.com",
             "password" => "Password1!",
         ]);
+=======
+
+>>>>>>> 5fb0c9eb553ede8920e7436c4e4f666813559123
         $this->assertResponseIsSuccessful();
     }
    
