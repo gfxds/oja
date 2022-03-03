@@ -14,4 +14,13 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'New User');
     }
+
+    public function testShowUsers(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/users');
+
+        $this->assertResponseIsSuccessful();
+    }
+   
 }
