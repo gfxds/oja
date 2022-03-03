@@ -70,6 +70,9 @@ App:
 http://localhost:8000/
 ```
 
+Port may differ. Check Symfony CLI output for port location.
+
+
 Rebuild javascript assets:
 ```
 npm install
