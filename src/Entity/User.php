@@ -60,6 +60,45 @@ class User
     }
 
     /**
+     * Will only return instance of User if valid. Otherwise throw UserException
+     * @param string $password
+     * @throws UserException
+     * @return self
+     */
+    public function validatePassword(string $password){
+
+        if(!preg_match('/[a-z]/', $password)){
+            throw new UserException(UserException::$errorLower);
+        }
+
+        if(!preg_match('/[A-Z]/', $password)){
+            throw new UserException(UserException::$errorUpper);
+        }
+
+        if(!preg_match('/[0-9]/', $password)){
+            throw new UserException(UserException::$errorDigit);
+        }
+
+        if(strlen($password) < 8 ){
+            throw new UserException(UserException::$errorLength);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $email
+     * @throws UserException
+     * @return self
+     */
+    public function validateEmail($email){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new UserException("invalid email address");
+        }
+        return $this;
+    }
+
+    /**
      * Set password never saves actual password only a hash which must be compared with password_verify
      * @param string $password
      * @return User
