@@ -93,7 +93,7 @@ class User
      */
     public function validateEmail($email){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new UserException("invalid email address");
+            throw new UserException(UserException::$email);
         }
         return $this;
     }

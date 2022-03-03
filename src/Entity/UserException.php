@@ -14,5 +14,6 @@ class UserException extends \InvalidArgumentException
     public static $errorLength = "Password must be minimum 8 characters long";
     public static $errorDigit = "Password must contain at least one digit";
     public static $errorLower = "Password must contain at least one lowercase character";
-    public static $errorUpper = "TPassword must contain at least one uppercase character";
+    public static $errorUpper = "Password must contain at least one uppercase character";
+    public static $email= "Please enter a valid email address";
 }
