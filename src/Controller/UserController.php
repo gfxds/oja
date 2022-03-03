@@ -30,6 +30,57 @@ class UserController extends AbstractController
     }
 
     /**
+     * Add new user
+     * @Route("/user", name="add_new_user", methods={"POST","PUT"})
+     */
+    public function addNewUser(
+        ManagerRegistry $doctrine,
+        ValidatorInterface $validator,
+        Request $request): JsonResponse
+    {
+        $user = new User();
+        $password = $request->get('password');
+        $email = $request->get('email');
+
+        try{
+            $user->validatePassword($password);
+            $user->validateEmail($email);
+        }catch (UserException $e){
+            return new JsonResponse([
+                "status" => "invalid input",
+                "code" => 422,
+                "error" => $e->getMessage(),
+            ],422);
+        }
+
+        $user->setPassword($password);
+        $user->setEmail($email);
+        $user->setName($request->get('name'));
+        $user->setPostcode($request->get('postcode'));
+
+        //validate entity check for not null, type and other basic constraints
+        $errors = $validator->validate($user);
+        if (count($errors) > 0) {
+            return new JsonResponse([
+                "status" => "error",
+                "code" => 400,
+                "error" => "One or more inputs are invalid",
+            ],400);
+        }
+
+        $entityManager = $doctrine->getManager();
+
+        $entityManager->persist($user);
+
+        $entityManager->flush();
+
+        return new JsonResponse([
+            "status" => "A new user has been added",
+            "code" => 200,
+        ]);
+    }
+
+    /**
      * List all users
      * @Route("/users", name="show_users")
      */
